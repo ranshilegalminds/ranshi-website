@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranshi Legal Minds — Where Textbooks End, Thinking Begins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #0a1628; --bg-deep: #050d1c; --bg-alt: #0f1f3a;
+    --paper: #f5efe0; --gold: #c9a961; --gold-bright: #e8c878;
+    --gold-deep: #a08442; --line: rgba(201, 169, 97, 0.2);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: var(--paper); margin: 0; overflow-x: hidden; }
+  .bg-texture { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.10) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.06) 0%, transparent 50%); }
+  .grain { position: fixed; inset: 0; opacity: 0.04; pointer-events: none; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .font-display { font-family: 'Playfair Display', serif; } .font-body { font-family: 'Cormorant Garamond', serif; } .font-ui { font-family: 'Inter', sans-serif; }
+
+  .logo-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--paper); overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+  .logo-circle:hover { box-shadow: 0 0 20px rgba(201,169,97,0.4); }
+  .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+  .header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(10, 22, 40, 0.7); border-bottom: 1px solid var(--line); transition: all 0.3s ease; }
+
+  .hero-center-container { position: relative; width: 380px; height: 380px; display: flex; align-items: center; justify-content: center; }
+  .hero-bg-logo { position: absolute; width: 240px; height: 240px; object-fit: contain; border-radius: 50%; opacity: 0.35; filter: drop-shadow(0 0 25px rgba(201,169,97,0.6)); z-index: 1; animation: pulse-logo 6s ease-in-out infinite; }
+  @keyframes pulse-logo { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.05); } }
+  @keyframes float-up { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes sway { 0%, 100% { transform: rotate(-3.5deg); } 50% { transform: rotate(3.5deg); } }
+  @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+  .scales-svg { filter: drop-shadow(0 0 40px rgba(201, 169, 97, 0.3)); animation: float-up 6s ease-in-out infinite; position: relative; z-index: 2; }
+  .scales-beam { transform-origin: 150px 100px; animation: sway 4.5s ease-in-out infinite; }
+  
+  .gold-text { background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold-bright) 50%, var(--gold-deep) 100%); background-size: 200% auto; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shimmer 6s linear infinite; }
+  .hero-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(201, 169, 97, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 169, 97, 0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%); }
+  .note-card { background: linear-gradient(135deg, rgba(245, 239, 224, 0.04) 0%, rgba(201, 169, 97, 0.02) 100%); border: 1px solid var(--line); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; cursor: pointer; }
+  .note-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.12), transparent); transition: left 0.8s; }
+  .note-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px -20px rgba(201, 169, 97, 0.3); }
+  .note-card:hover::before { left: 100%; }
+  .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); color: var(--bg-deep); font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.05em; transition: all 0.3s ease; border: none; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(201, 169, 97, 0.6); }
+  .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: var(--gold); color: var(--bg-deep); }
+  
+  .step { animation: step-in 0.5s ease forwards; }
+  @keyframes step-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .input-field { background: rgba(245, 239, 224, 0.04); border: 1px solid var(--line); color: var(--paper); font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+  .input-field:focus { outline: none; border-color: var(--gold); background: rgba(245, 239, 224, 0.06); box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15); }
+  .input-field::placeholder { color: rgba(245, 239, 224, 0.35); }
+  .topic-pill { background: rgba(245, 239, 224, 0.03); border: 1px solid var(--line); transition: all 0.3s ease; cursor: pointer; }
+  .topic-pill:hover { border-color: var(--gold); background: rgba(201, 169, 97, 0.08); transform: translateX(4px); }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .particle { position: absolute; background: var(--gold); border-radius: 50%; pointer-events: none; }
+  
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--paper); color: var(--bg-deep); padding: 16px 28px; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 500; box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5); border-left: 4px solid var(--gold); z-index: 100; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; opacity: 0; }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  
+  .modal-overlay { position: fixed; inset: 0; background: rgba(5, 13, 28, 0.88); backdrop-filter: blur(8px); z-index: 80; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-card { background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%); border: 1px solid var(--gold); max-width: 540px; width: 100%; padding: 48px 40px; position: relative; transform: scale(0.95); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+  .modal-overlay.active .modal-card { transform: scale(1); }
+  .modal-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 4px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .step-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(201, 169, 97, 0.2); transition: all 0.3s ease; }
+  .step-dot.active { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+  .step-dot.completed { background: var(--gold-bright); }
+  ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+  .divider { display: flex; align-items: center; gap: 16px; color: var(--gold); }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  
+  .whatsapp-section { background: linear-gradient(135deg, #0a1628 0%, #0f1f3a 50%, #0a1628 100%); position: relative; overflow: hidden; }
+  .whatsapp-glow { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37, 211, 102, 0.15) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse-glow 4s ease-in-out infinite; }
+  @keyframes pulse-glow { 0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+  .quote-mark { font-family: 'Playfair Display', serif; font-size: 120px; line-height: 1; color: var(--gold); opacity: 0.18; }
+  
+  .saved-badge { background: rgba(201, 169, 97, 0.08); border: 1px solid var(--line); border-radius: 4px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(245, 239, 224, 0.7); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .saved-badge .reset-link { color: var(--gold); text-decoration: underline; cursor: pointer; font-size: 12px; background: none; border: none; font-family: 'Inter', sans-serif; }
+  .saved-badge .reset-link:hover { color: var(--gold-bright); }
+  
+  @media (max-width: 768px) { .modal-card { padding: 32px 22px; } .quote-mark { font-size: 80px; } .hero-center-container { width: 300px; height: 300px; } .hero-bg-logo { width: 180px; height: 180px; } .scales-svg { width: 300px; height: 300px; } }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+<div class="grain"></div>
+
+<header class="header">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="#welcome" class="flex items-center gap-3 no-underline">
+      <div class="logo-circle">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo">
+      </div>
+      <div>
+        <div class="font-display text-xl tracking-wide" style="color: var(--paper);">Ranshi</div>
+        <div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEGAL MINDS</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 font-ui text-sm">
+      <a href="#welcome" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Welcome</a>
+      <a href="#about" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">About</a>
+      <a href="#notes" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Notes</a>
+      <a href="#community" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Community</a>
+    </nav>
+    <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="btn-outline px-5 py-2 text-sm rounded-sm hidden sm:inline-block">JOIN WHATSAPP</a>
+  </div>
+</header>
+
+<section id="welcome" class="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+  <div class="hero-pattern"></div>
+  <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10 w-full">
+    <div class="text-center lg:text-left">
+      <div class="inline-flex items-center gap-3 mb-8">
+        <div class="w-10 h-px" style="background: var(--gold);"></div>
+        <span class="font-ui text-xs tracking-[0.4em]" style="color: var(--gold);">LEARN · THINK · LEAD</span>
+        <div class="w-10 h-px" style="background: var(--gold);"></div>
+      </div>
+      <h1 class="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.95] mb-6">
+        <span style="color: var(--paper);">Where</span><br>
+        <span style="color: var(--paper);">Textbooks</span><br>
+        <span class="italic font-normal" style="color: var(--gold);">End,</span><br>
+        <span style="color: var(--paper);">Thinking</span><br>
+        <span class="gold-text">Begins.</span>
+      </h1>
+      <p class="font-body text-xl md:text-2xl mt-8 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed" style="color: rgba(245, 239, 224, 0.75);">
+        Free, structured notes and study material crafted to help you understand your subjects — not just memorise them.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+        <a href="#notes" class="btn-gold px-8 py-4 text-sm tracking-wider no-underline">EXPLORE NOTES</a>
+        <a href="#about" class="btn-outline px-8 py-4 text-sm tracking-wider">OUR STORY</a>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center">
+      <div class="hero-center-container">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" class="hero-bg-logo" alt="Ranshi Logo">
+        <svg class="scales-svg" width="380" height="380" viewBox="0 0 300 300" fill="none">
+          <circle cx="150" cy="150" r="140" stroke="#c9a961" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="150" cy="150" r="120" stroke="#c9a961" stroke-width="0.5" opacity="0.2"/>
+          <circle cx="150" cy="150" r="100" stroke="#c9a961" stroke-width="0.3" opacity="0.15"/>
+          <g class="scales-beam">
+            <line x1="150" y1="60" x2="150" y2="230" stroke="#c9a961" stroke-width="2.5"/>
+            <line x1="60" y1="100" x2="240" y2="100" stroke="#c9a961" stroke-width="2.5"/>
+            <circle cx="150" cy="55" r="6" fill="#c9a961"/>
+            <circle cx="150" cy="55" r="3" fill="#0a1628"/>
+            <line x1="60" y1="100" x2="45" y2="150" stroke="#c9a961" stroke-width="1" opacity="0.7"/>
+            <line x1="60" y1="100" x2="75" y2="150" stroke="#c9a961" stroke-width="1" opacity="0.7"/>
+            <path d="M 30 150 Q 60 178 90 150" stroke="#c9a961" stroke-width="2" fill="none"/>
+            <ellipse cx="60" cy="150" rx="30" ry="5" stroke="#c9a961" stroke-width="1.5" fill="rgba(201, 169, 97, 0.15)"/>
+            <line x1="240" y1="100" x2="225" y2="150" stroke="#c9a961" stroke-width="1" opacity="0.7"/>
+            <line x1="240" y1="100" x2="255" y2="150" stroke="#c9a961" stroke-width="1" opacity="0.7"/>
+            <path d="M 210 150 Q 240 178 270 150" stroke="#c9a961" stroke-width="2" fill="none"/>
+            <ellipse cx="240" cy="150" rx="30" ry="5" stroke="#c9a961" stroke-width="1.5" fill="rgba(201, 169, 97, 0.15)"/>
+          </g>
+          <rect x="120" y="230" width="60" height="8" fill="#c9a961"/>
+          <rect x="105" y="238" width="90" height="6" fill="#c9a961"/>
+          <rect x="95" y="244" width="110" height="4" fill="#c9a961" opacity="0.7"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <span class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">SCROLL</span>
+    <div class="w-px h-12" style="background: linear-gradient(180deg, var(--gold), transparent);"></div>
+  </div>
+</section>
+
+<section id="about" class="relative py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <div class="divider mb-6"><span class="font-ui text-xs tracking-[0.4em]">ABOUT THE CHANNEL</span></div>
+      <h2 class="font-display text-4xl md:text-6xl font-bold">
+        <span style="color: var(--paper);">More Than Notes.</span><br>
+        <span class="italic font-normal gold-text">A Way of Thinking.</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="text-center reveal"><div class="font-display text-6xl gold-text mb-2">50+</div><div class="font-ui text-xs tracking-[0.2em]" style="color: var(--gold);">SUBJECTS COVERED</div></div>
+      <div class="text-center reveal"><div class="font-display text-6xl gold-text mb-2">10k+</div><div class="font-ui text-xs tracking-[0.2em]" style="color: var(--gold);">STUDENTS REACHED</div></div>
+      <div class="text-center reveal"><div class="font-display text-6xl gold-text mb-2">100%</div><div class="font-ui text-xs tracking-[0.2em]" style="color: var(--gold);">FREE FOREVER</div></div>
+    </div>
+    <div class="relative max-w-3xl mx-auto text-center reveal">
+      <div class="quote-mark absolute -top-8 left-0">"</div>
+      <p class="font-body text-2xl md:text-3xl leading-relaxed italic" style="color: var(--paper);">
+        Ranshi Legal Minds exists for the student who reads the textbook twice and still doesn't get it. We break down judgments, decode statutes, and rebuild concepts from first principles — so the next time you open a case, you don't just read it. <span style="color: var(--gold);">You understand it.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="notes" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <div class="divider mb-6"><span class="font-ui text-xs tracking-[0.4em]">THE LIBRARY</span></div>
+      <h2 class="font-display text-4xl md:text-6xl font-bold mb-4" style="color: var(--paper);">Notes</h2>
+      <p class="font-body text-xl max-w-2xl mx-auto" style="color: rgba(245, 239, 224, 0.65);">
+        Browse the collection. Tap any note to begin the download — we'll ask for your details once, then you choose the topic.
+      </p>
+    </div>
+    <div id="notesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </div>
+</section>
+
+<section id="community" class="whatsapp-section py-24 px-6 relative">
+  <div class="whatsapp-glow"></div>
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="divider mb-6"><span class="font-ui text-xs tracking-[0.4em]" style="color: var(--gold);">JOIN THE COMMUNITY</span></div>
+    <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">
+      <span style="color: var(--paper);">Stay Connected on</span><br><span class="gold-text">WhatsApp</span>
+    </h2>
+    <p class="font-body text-xl md:text-2xl mb-10 max-w-2xl mx-auto" style="color: rgba(245, 239, 224, 0.75);">
+      Get instant updates when new notes drop. Ask questions. Discuss judgments. Be part of a community that takes law seriously — and itself, not so much.
+    </p>
+    <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="inline-flex items-center gap-3 px-10 py-5 rounded-sm font-ui font-semibold tracking-wider transition-all hover:scale-105 no-underline" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; box-shadow: 0 20px 60px -20px rgba(37, 211, 102, 0.5);">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.892c0 2.096.549 4.142 1.595 5.945L0 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.582 0 11.94-5.359 11.944-11.893a11.821 11.821 0 00-3.417-8.453"/></svg>
+      JOIN WHATSAPP CHANNEL
+    </a>
+  </div>
+</section>
+
+<footer class="py-12 px-6 border-t" style="border-color: var(--line);">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div class="logo-circle" style="width:36px;height:36px;">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo">
+      </div>
+      <div>
+        <div class="font-display text-lg" style="color: var(--paper);">Ranshi Legal Minds</div>
+        <div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEARN · THINK · LEAD</div>
+      </div>
+    </div>
+    <div class="font-ui text-xs text-center" style="color: rgba(245, 239, 224, 0.4);">© 2024 Ranshi Legal Minds · Where Textbooks End, Thinking Begins</div>
+  </div>
+</footer>
+
+<div id="downloadModal" class="modal-overlay">
+  <div class="modal-card">
+    <button id="closeModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center hover:rotate-90 transition" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="flex items-center justify-center gap-3 mb-8">
+      <div class="step-dot active" id="dot1"></div><div class="w-8 h-px" style="background: var(--line);"></div>
+      <div class="step-dot" id="dot2"></div><div class="w-8 h-px" style="background: var(--line);"></div>
+      <div class="step-dot" id="dot3"></div>
+    </div>
+
+    <div id="step1" class="step">
+      <div class="text-center mb-6">
+        <div class="font-ui text-xs tracking-[0.3em] mb-2" style="color: var(--gold);">STEP 01</div>
+        <h3 id="step1Title" class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Note Title</h3>
+        <p id="step1Desc" class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Description</p>
+      </div>
+      <div class="grid grid-cols-3 gap-4 my-6 py-6 border-y" style="border-color: var(--line);">
+        <div class="text-center"><div class="font-ui text-[10px] tracking-wider mb-1" style="color: var(--gold);">PAGES</div><div id="notePages" class="font-display text-2xl" style="color: var(--paper);">—</div></div>
+        <div class="text-center"><div class="font-ui text-[10px] tracking-wider mb-1" style="color: var(--gold);">TOPICS</div><div id="noteTopicsCount" class="font-display text-2xl" style="color: var(--paper);">—</div></div>
+        <div class="text-center"><div class="font-ui text-[10px] tracking-wider mb-1" style="color: var(--gold);">FORMAT</div><div class="font-display text-2xl" style="color: var(--paper);">PDF</div></div>
+      </div>
+      <!-- Text updated here -->
+      <div id="welcomeBackNote" class="text-center mb-4 hidden">
+        <p class="font-body text-base italic" style="color: var(--gold);">Welcome back, <span id="welcomeBackName"></span>! You already registered.</p>
+      </div>
+      <button id="continueBtn" class="btn-gold w-full py-4 text-sm tracking-wider">CONTINUE TO DOWNLOAD</button>
+    </div>
+
+    <div id="step2" class="step hidden">
+      <div class="text-center mb-6">
+        <div class="font-ui text-xs tracking-[0.3em] mb-2" style="color: var(--gold);">STEP 02</div>
+        <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Your Details</h3>
+        <p class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Enter your name and email once — we'll remember you next time.</p>
+      </div>
+      <form id="detailsForm" class="space-y-4">
+        <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">FULL NAME</label><input type="text" id="userName" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. Aditya Sharma"></div>
+        <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">EMAIL ADDRESS</label><input type="email" id="userEmail" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="you@example.com"></div>
+        <p id="formError" class="text-sm hidden font-ui" style="color: #ff8a8a;">Please enter valid details.</p>
+        <button type="submit" class="btn-gold w-full py-4 text-sm tracking-wider mt-4">CONTINUE TO TOPICS</button>
+      </form>
+    </div>
+
+    <div id="step3" class="step hidden">
+      <div class="text-center mb-4">
+        <div class="font-ui text-xs tracking-[0.3em] mb-2" style="color: var(--gold);">STEP 03</div>
+        <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Select Topic</h3>
+        <p class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Choose the topic you'd like to download.</p>
+      </div>
+      <div id="savedUserInfo" class="saved-badge mb-4">
+        <span>Downloading as <strong id="savedName" style="color: var(--gold);"></strong> · <span id="savedEmail" style="color: rgba(245,239,224,0.6);"></span></span>
+        <button id="resetDetailsBtn" class="reset-link">Not you? Change details</button>
+      </div>
+      <div id="topicsList" class="space-y-3 my-6 max-h-60 overflow-y-auto pr-2"></div>
+      <button id="backToStep2" class="font-ui text-xs tracking-wider w-full py-3 mt-2" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">← BACK TO DETAILS</button>
+    </div>
+
+    <div id="step4" class="step hidden text-center">
+      <div class="mb-6">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4" style="background: rgba(201, 169, 97, 0.1); border: 1px solid var(--gold);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Download Started</h3>
+        <p class="font-body text-lg mb-1" style="color: rgba(245, 239, 224, 0.7);">Your PDF is on its way.</p>
+        <p id="successTopic" class="font-body text-base italic" style="color: var(--gold);"></p>
+      </div>
+      <div class="p-4 my-4 border" style="border-color: var(--line); background: rgba(201, 169, 97, 0.04);">
+        <p class="font-body text-base" style="color: rgba(245, 239, 224, 0.75);">For more notes, updates and discussions, join our WhatsApp channel.</p>
+      </div>
+      <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="btn-outline block w-full py-4 text-sm tracking-wider no-underline">JOIN WHATSAPP CHANNEL</a>
+      <button id="closeAfterSuccess" class="font-ui text-xs tracking-wider w-full py-3 mt-3" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// ====== Notes Data ======
+// NOW EACH TOPIC HAS ITS OWN PDF LINK. Replace the '#' with your Google Drive direct download links.
+const notes = [
+  {
+    id: 'constitutional-law',
+    title: 'Constitutional Law',
+    subtitle: 'Fundamental Rights & DPSP',
+    description: 'A structured walkthrough of Parts III and IV of the Indian Constitution — articles, landmark cases, and the doctrine of basic structure.',
+    pages: 52,
+    icon: 'M3 21h18M5 21V7l8-4 8 4v14M9 21v-6h6v6M9 9h.01M15 9h.01',
+    topics: [
+      { name: 'Fundamental Rights (Art. 12–35)', pdfUrl: 'https://drive.google.com/uc?export=download&id=1sQv3NjbPJ434WklOMkzSFfGWY11NVRJQ' },
+      { name: 'Directive Principles of State Policy', pdfUrl: '#' },
+      { name: 'Basic Structure Doctrine', pdfUrl: '#' },
+      { name: 'Judicial Review & Writs', pdfUrl: '#' },
+      { name: 'Emergency Provisions', pdfUrl: '#' },
+      { name: 'Centre-State Relations', pdfUrl: '#' },
+      { name: 'Amendment of Constitution', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'criminal-law',
+    title: 'Criminal Law',
+    subtitle: 'IPC & CrPC Essentials',
+    description: 'Conceptual notes on the Indian Penal Code and Criminal Procedure Code — offences, defences, and the architecture of a criminal trial.',
+    pages: 64,
+    icon: 'M12 1l3 5 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z',
+    topics: [
+      { name: 'Nature of Crime & Mens Rea', pdfUrl: '#' },
+      { name: 'General Exceptions', pdfUrl: '#' },
+      { name: 'Offences Against Body', pdfUrl: '#' },
+      { name: 'Offences Against Property', pdfUrl: '#' },
+      { name: 'Criminal Conspiracy', pdfUrl: '#' },
+      { name: 'Stages of Trial', pdfUrl: '#' },
+      { name: 'Bail & Anticipatory Bail', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'contract-act',
+    title: 'Law of Contract',
+    subtitle: 'Formation & Breach',
+    description: 'From offer and acceptance to remedies for breach — the Indian Contract Act, 1872 explained through cases and first principles.',
+    pages: 48,
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    topics: [
+      { name: 'Essentials of Valid Contract', pdfUrl: '#' },
+      { name: 'Consideration & Privity', pdfUrl: '#' },
+      { name: 'Free Consent', pdfUrl: '#' },
+      { name: 'Void & Voidable Agreements', pdfUrl: '#' },
+      { name: 'Quasi-Contracts', pdfUrl: '#' },
+      { name: 'Performance & Discharge', pdfUrl: '#' },
+      { name: 'Remedies for Breach', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'family-law',
+    title: 'Family Law',
+    subtitle: 'Hindu & Muslim Law',
+    description: 'Marriage, succession, and personal laws explained with comparative clarity across Hindu and Muslim legal traditions.',
+    pages: 56,
+    icon: 'M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 100-8 4 4 0 000 8z',
+    topics: [
+      { name: 'Hindu Marriage Act', pdfUrl: '#' },
+      { name: 'Divorce & Maintenance', pdfUrl: '#' },
+      { name: 'Muslim Personal Law', pdfUrl: '#' },
+      { name: 'Succession & Inheritance', pdfUrl: '#' },
+      { name: 'Guardianship & Custody', pdfUrl: '#' },
+      { name: 'Adoption', pdfUrl: '#' },
+      { name: 'Parsi & Christian Law', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'jurisprudence',
+    title: 'Jurisprudence',
+    subtitle: 'Legal Theory & Schools',
+    description: 'What is law? Natural law, positivism, realism and beyond — the philosophical foundation every law student should master.',
+    pages: 42,
+    icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+    topics: [
+      { name: 'Nature & Meaning of Law', pdfUrl: '#' },
+      { name: 'Schools of Jurisprudence', pdfUrl: '#' },
+      { name: 'Natural Law Theory', pdfUrl: '#' },
+      { name: 'Analytical Positivism', pdfUrl: '#' },
+      { name: 'Sociological School', pdfUrl: '#' },
+      { name: 'Legal Realism', pdfUrl: '#' },
+      { name: 'Rights & Duties', pdfUrl: '#' },
+      { name: 'Sources of Law', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'law-of-torts',
+    title: 'Law of Torts',
+    subtitle: 'Civil Wrongs & Liabilities',
+    description: 'Negligence, nuisance, defamation and strict liability — a complete primer on the law of civil wrongs and damages.',
+    pages: 38,
+    icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+    topics: [
+      { name: 'Nature of Tortious Liability', pdfUrl: '#' },
+      { name: 'Negligence', pdfUrl: '#' },
+      { name: 'Nuisance', pdfUrl: '#' },
+      { name: 'Defamation', pdfUrl: '#' },
+      { name: 'Strict Liability', pdfUrl: '#' },
+      { name: 'Vicarious Liability', pdfUrl: '#' },
+      { name: 'Defences', pdfUrl: '#' },
+      { name: 'Remedies & Damages', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'administrative-law',
+    title: 'Administrative Law',
+    subtitle: 'Delegated Legislation & Tribunals',
+    description: 'How power is delegated, exercised, and checked — the framework of administrative justice in India.',
+    pages: 44,
+    icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5',
+    topics: [
+      { name: 'Delegated Legislation', pdfUrl: '#' },
+      { name: 'Principles of Natural Justice', pdfUrl: '#' },
+      { name: 'Judicial Review of Admin Action', pdfUrl: '#' },
+      { name: 'Ombudsman & Lokpal', pdfUrl: '#' },
+      { name: 'Tribunals', pdfUrl: '#' },
+      { name: 'Right to Information', pdfUrl: '#' },
+      { name: 'Public Corporation', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'property-law',
+    title: 'Property Law',
+    subtitle: 'Transfer & Rights',
+    description: 'The Transfer of Property Act, 1882 — gifts, leases, mortgages and the architecture of immovable property rights.',
+    pages: 40,
+    icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    topics: [
+      { name: 'Transfer of Property Act', pdfUrl: '#' },
+      { name: 'Sale & Mortgage', pdfUrl: '#' },
+      { name: 'Lease & Gift', pdfUrl: '#' },
+      { name: 'Easements', pdfUrl: '#' },
+      { name: 'Doctrine of lis pendens', pdfUrl: '#' },
+      { name: 'Doctrine of Part Performance', pdfUrl: '#' },
+      { name: 'Registration & Stamp', pdfUrl: '#' }
+    ]
+  },
+  {
+    id: 'evidence-law',
+    title: 'Law of Evidence',
+    subtitle: 'IEA — Relevancy & Proof',
+    description: 'The Indian Evidence Act, 1872 — what is relevant, what is admissible, and who bears the burden of proof.',
+    pages: 36,
+    icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
+    topics: [
+      { name: 'Relevancy of Facts', pdfUrl: '#' },
+      { name: 'Hearsay Rule', pdfUrl: '#' },
+      { name: 'Admissions & Confessions', pdfUrl: '#' },
+      { name: 'Burden of Proof', pdfUrl: '#' },
+      { name: 'Witnesses', pdfUrl: '#' },
+      { name: 'Documentary Evidence', pdfUrl: '#' },
+      { name: 'Expert Evidence', pdfUrl: '#' }
+    ]
+  }
+];
+
+let selectedNote = null;
+let userDetails = { name: '', email: '' };
+const STORAGE_KEY = 'ranshi_user_details';
+
+function getSavedUserDetails() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch (e) {} return null; }
+function saveUserDetails(name, email) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ name, email })); } catch (e) {} }
+function clearUserDetails() { try { localStorage.removeItem(STORAGE_KEY); } catch (e) {} }
+
+const notesGrid = document.getElementById('notesGrid');
+notes.forEach((note, idx) => {
+  const card = document.createElement('div');
+  card.className = 'note-card p-7 reveal';
+  card.style.transitionDelay = `${idx * 60}ms`;
+  card.innerHTML = `<div class="flex items-start justify-between mb-4"><div class="w-12 h-12 flex items-center justify-center rounded-sm" style="background: rgba(201, 169, 97, 0.08); border: 1px solid var(--line);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="${note.icon}"/></svg></div><div class="font-ui text-[10px] tracking-[0.2em]" style="color: var(--gold);">NOTE ${String(idx+1).padStart(2,'0')}</div></div><h3 class="font-display text-2xl font-bold mb-1" style="color: var(--paper);">${note.title}</h3><div class="font-ui text-xs tracking-wider mb-3" style="color: var(--gold);">${note.subtitle.toUpperCase()}</div><p class="font-body text-base leading-relaxed mb-5" style="color: rgba(245, 239, 224, 0.65);">${note.description}</p><div class="flex items-center justify-between pt-4 border-t" style="border-color: var(--line);"><div class="font-ui text-xs" style="color: rgba(245, 239, 224, 0.55);">${note.pages} pages · ${note.topics.length} topics</div><div class="font-ui text-xs tracking-wider flex items-center gap-1" style="color: var(--gold);">DOWNLOAD <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div></div>`;
+  card.addEventListener('click', () => openDownloadFlow(note));
+  notesGrid.appendChild(card);
+});
+
+const modal = document.getElementById('downloadModal');
+const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), step3 = document.getElementById('step3'), step4 = document.getElementById('step4');
+const dot1 = document.getElementById('dot1'), dot2 = document.getElementById('dot2'), dot3 = document.getElementById('dot3');
+const welcomeBackNote = document.getElementById('welcomeBackNote'), welcomeBackName = document.getElementById('welcomeBackName');
+
+function setStep(n) {
+  [step1, step2, step3, step4].forEach(s => s.classList.add('hidden'));
+  dot1.classList.remove('active','completed'); dot2.classList.remove('active','completed'); dot3.classList.remove('active','completed');
+  let a;
+  if (n===1) { step1.classList.remove('hidden'); dot1.classList.add('active'); a=step1; }
+  else if (n===2) { step2.classList.remove('hidden'); dot1.classList.add('completed'); dot2.classList.add('active'); a=step2; }
+  else if (n===3) { step3.classList.remove('hidden'); dot1.classList.add('completed'); dot2.classList.add('completed'); dot3.classList.add('active'); a=step3; }
+  else if (n===4) { step4.classList.remove('hidden'); dot1.classList.add('completed'); dot2.classList.add('completed'); dot3.classList.add('completed'); a=step4; }
+  if(a) { a.style.animation='none'; void a.offsetWidth; a.style.animation=''; }
+}
+
+function openDownloadFlow(note) {
+  selectedNote = note;
+  document.getElementById('step1Title').textContent = note.title;
+  document.getElementById('step1Desc').textContent = note.description;
+  document.getElementById('notePages').textContent = note.pages;
+  document.getElementById('noteTopicsCount').textContent = note.topics.length;
+  const saved = getSavedUserDetails();
+  if (saved && saved.name && saved.email) {
+    userDetails = saved; welcomeBackNote.classList.remove('hidden'); welcomeBackName.textContent = saved.name;
+    document.getElementById('continueBtn').textContent = 'CONTINUE TO TOPICS';
+  } else {
+    welcomeBackNote.classList.add('hidden'); document.getElementById('continueBtn').textContent = 'CONTINUE TO DOWNLOAD';
+  }
+  setStep(1); modal.classList.add('active'); document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; setTimeout(() => { document.getElementById('detailsForm').reset(); document.getElementById('formError').classList.add('hidden'); }, 300); }
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('closeAfterSuccess').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+document.getElementById('continueBtn').addEventListener('click', () => {
+  const saved = getSavedUserDetails();
+  if (saved && saved.name && saved.email) { userDetails = saved; renderTopics(); populateSavedUserInfo(); setStep(3); }
+  else { setStep(2); setTimeout(() => document.getElementById('userName').focus(), 300); }
+});
+
+document.getElementById('detailsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('userName').value.trim(), email = document.getElementById('userEmail').value.trim();
+  const errEl = document.getElementById('formError'); errEl.classList.add('hidden');
+  if (name.length < 2) { errEl.textContent = 'Please enter your full name.'; errEl.classList.remove('hidden'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.remove('hidden'); return; }
+  userDetails = { name, email }; saveUserDetails(name, email); renderTopics(); populateSavedUserInfo(); setStep(3);
+});
+
+document.getElementById('backToStep2').addEventListener('click', () => setStep(2));
+document.getElementById('resetDetailsBtn').addEventListener('click', () => {
+  clearUserDetails(); userDetails = { name: '', email: '' }; document.getElementById('detailsForm').reset();
+  document.getElementById('formError').classList.add('hidden'); welcomeBackNote.classList.add('hidden');
+  document.getElementById('continueBtn').textContent = 'CONTINUE TO DOWNLOAD'; setStep(2);
+  setTimeout(() => document.getElementById('userName').focus(), 300);
+});
+
+function populateSavedUserInfo() { document.getElementById('savedName').textContent = userDetails.name; document.getElementById('savedEmail').textContent = userDetails.email; }
+
+function renderTopics() {
+  const list = document.getElementById('topicsList'); list.innerHTML = '';
+  selectedNote.topics.forEach((topic, idx) => {
+    const item = document.createElement('div'); item.className = 'topic-pill p-4 flex items-center justify-between';
+    // Now using topic.name to display the text
+    item.innerHTML = `<div class="flex items-center gap-3"><span class="font-ui text-xs" style="color: var(--gold);">${String(idx+1).padStart(2,'0')}</span><span class="font-body text-lg" style="color: var(--paper);">${topic.name}</span></div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1.5"><path d="M12 3v12m0 0l-4-4m4 4l4-4M3 17v3a1 1 0 001 1h16a1 1 0 001-1v-3"/></svg>`;
+    // Passing the whole topic object to downloadTopic
+    item.addEventListener('click', () => downloadTopic(topic));
+    list.appendChild(item);
+  });
+}
+
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxKxemKbJaatmLQJKj3rUN67uo3I6SobSFSaiFjay42APY67tUvNTOew5aElIJ7Q-rh/exec';
+async function submitToSheet(topicName) {
+  const payload = JSON.stringify({ name: userDetails.name, email: userDetails.email, note: selectedNote.title, topic: topicName, timestamp: new Date().toISOString() });
+  try { await fetch(SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: payload }); } catch (err) { console.warn('Sheet submission note:', err); }
+}
+
+// Now receiving the whole topic object
+async function downloadTopic(topic) {
+  showToast('Preparing your download...');
+  await submitToSheet(topic.name); // Sending topic.name to the sheet
+  
+  if (topic.pdfUrl && topic.pdfUrl !== '#') {
+    const link = document.createElement('a');
+    link.href = topic.pdfUrl; // Using the specific link for this topic
+    link.download = `${selectedNote.title}_${topic.name}.pdf`; 
+    link.target = '_blank'; 
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    showToast('Error: PDF link not set for this topic.');
+  }
+  
+  document.getElementById('successTopic').textContent = `${selectedNote.title} — ${topic.name}`;
+  setStep(4);
+  showToast('Download started · details saved to sheet');
+}
+
+function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3200); }
+
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const particlesContainer = document.getElementById('particles');
+const pk = document.createElement('style'); pk.textContent = `@keyframes floatParticle { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(30px, -40px); } 50% { transform: translate(-20px, -80px); } 75% { transform: translate(-40px, -30px); } }`; document.head.appendChild(pk);
+for (let i = 0; i < 28; i++) {
+  const p = document.createElement('div'); p.className = 'particle';
+  const s = Math.random() * 3 + 1; p.style.width = s + 'px'; p.style.height = s + 'px';
+  p.style.left = Math.random() * 100 + '%'; p.style.top = Math.random() * 100 + '%';
+  p.style.opacity = (Math.random() * 0.4 + 0.1).toFixed(2);
+  const d = Math.random() * 20 + 15; p.style.animation = `floatParticle ${d}s ease-in-out infinite`; p.style.animationDelay = -Math.random() * d + 's';
+  particlesContainer.appendChild(p);
+}
+
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) { header.style.background = 'rgba(10, 22, 40, 0.95)'; header.style.boxShadow = '0 10px 40px -10px rgba(0,0,0,0.5)'; }
+  else { header.style.background = 'rgba(10, 22, 40, 0.7)'; header.style.boxShadow = 'none'; }
+});
+</script>
+</body>
+</html>
