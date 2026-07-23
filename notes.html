@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranshi Legal Minds — Law Course Notes</title>
+<link rel="icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #0a1628; --bg-deep: #050d1c; --bg-alt: #0f1f3a;
+    --paper: #f5efe0; --gold: #c9a961; --gold-bright: #e8c878;
+    --gold-deep: #a08442; --line: rgba(201, 169, 97, 0.2);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: var(--paper); margin: 0; overflow-x: hidden; }
+  .bg-texture { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.10) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.06) 0%, transparent 50%); }
+  .grain { position: fixed; inset: 0; opacity: 0.04; pointer-events: none; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .font-display { font-family: 'Playfair Display', serif; } .font-body { font-family: 'Cormorant Garamond', serif; } .font-ui { font-family: 'Inter', sans-serif; }
+
+  .logo-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--paper); overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+  .logo-circle:hover { box-shadow: 0 0 20px rgba(201,169,97,0.4); }
+  .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+  .header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(10, 22, 40, 0.7); border-bottom: 1px solid var(--line); transition: all 0.3s ease; }
+
+  .note-card { background: linear-gradient(135deg, rgba(245, 239, 224, 0.04) 0%, rgba(201, 169, 97, 0.02) 100%); border: 1px solid var(--line); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; height: 100%; }
+  .note-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.12), transparent); transition: left 0.8s; }
+  .note-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 20px 60px -20px rgba(201, 169, 97, 0.3); }
+  .note-card:hover::before { left: 100%; }
+  
+  .pill-btn { background: rgba(201, 169, 97, 0.05); border: 1px solid var(--line); color: var(--paper); font-family: 'Inter', sans-serif; transition: all 0.3s ease; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .pill-btn:hover { border-color: var(--gold); background: rgba(201, 169, 97, 0.1); color: var(--gold); transform: translateY(-2px); }
+  .pill-btn.active { background: var(--gold); color: var(--bg-deep); border-color: var(--gold); }
+  
+  .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); color: var(--bg-deep); font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.05em; transition: all 0.3s ease; border: none; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(201, 169, 97, 0.6); }
+  .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: var(--gold); color: var(--bg-deep); }
+  
+  .step { animation: step-in 0.5s ease forwards; }
+  @keyframes step-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .input-field { background: rgba(245, 239, 224, 0.04); border: 1px solid var(--line); color: var(--paper); font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+  .input-field:focus { outline: none; border-color: var(--gold); background: rgba(245, 239, 224, 0.06); box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15); }
+  .input-field::placeholder { color: rgba(245, 239, 224, 0.35); }
+  
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--paper); color: var(--bg-deep); padding: 16px 28px; border-radius: 4px; font-family: 'Inter', sans-serif; font-weight: 500; box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5); border-left: 4px solid var(--gold); z-index: 100; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; opacity: 0; }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  
+  .modal-overlay { position: fixed; inset: 0; background: rgba(5, 13, 28, 0.88); backdrop-filter: blur(8px); z-index: 80; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+  .modal-card { background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%); border: 1px solid var(--gold); max-width: 540px; width: 100%; padding: 48px 40px; position: relative; transform: scale(0.95); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+  .modal-overlay.active .modal-card { transform: scale(1); }
+  .modal-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 4px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  
+  ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+  .divider { display: flex; align-items: center; gap: 16px; color: var(--gold); }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+<div class="grain"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <div class="logo-circle">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo">
+      </div>
+      <div>
+        <div class="font-display text-xl tracking-wide" style="color: var(--paper);">Ranshi</div>
+        <div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEGAL MINDS</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 font-ui text-sm">
+      <a href="index.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Home</a>
+      <a href="notes.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--gold);">Notes</a>
+      <a href="bare-acts.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Bare Acts</a>
+      <a href="ugc-net.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">UGC NET</a>
+      <a href="about.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">About</a>
+    </nav>
+    <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="btn-outline px-5 py-2 text-sm rounded-sm hidden sm:inline-block">JOIN WHATSAPP</a>
+  </div>
+</header>
+
+<!-- STRUCTURED NOTES SECTION -->
+<section id="notes" class="relative pt-32 py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <div class="divider mb-6"><span class="font-ui text-xs tracking-[0.4em]">THE LIBRARY</span></div>
+      <h2 class="font-display text-4xl md:text-6xl font-bold mb-4" style="color: var(--paper);">Law Course Notes</h2>
+      <p class="font-body text-xl max-w-2xl mx-auto" style="color: rgba(245, 239, 224, 0.65);">Select your program and semester to access structured notes based on the Tamil Nadu Dr. Ambedkar Law University (TNDALU) syllabus.</p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-10 font-ui text-sm">
+      <button id="nav5Year" class="pill-btn px-5 py-2 rounded-sm">5 Year LL.B</button>
+      <button id="nav3Year" class="pill-btn px-5 py-2 rounded-sm">3 Year LL.B</button>
+      <button id="navLLM" class="pill-btn px-5 py-2 rounded-sm">LL.M</button>
+    </div>
+
+    <div id="notesContentArea" class="mt-12"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12 px-6 border-t" style="border-color: var(--line);">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div class="logo-circle" style="width:36px;height:36px;"><img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo"></div>
+      <div><div class="font-display text-lg" style="color: var(--paper);">Ranshi Legal Minds</div><div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEARN · THINK · LEAD</div></div>
+    </div>
+    <div class="font-ui text-xs text-center" style="color: rgba(245, 239, 224, 0.4);">© 2024 Ranshi Legal Minds · Where Textbooks End, Thinking Begins</div>
+  </div>
+</footer>
+
+<!-- Download / Login Modal -->
+<div id="downloadModal" class="modal-overlay">
+  <div class="modal-card">
+    <button id="closeModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center hover:rotate-90 transition" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div id="step1" class="step">
+      <div class="text-center mb-6">
+        <div class="font-ui text-xs tracking-[0.3em] mb-2" style="color: var(--gold);">REGISTER TO DOWNLOAD</div>
+        <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Quick Login</h3>
+        <p class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Enter your details once. The PDF will download automatically.</p>
+      </div>
+      
+      <div id="returningUserView" class="hidden text-center">
+        <p class="font-body text-xl mb-6">Welcome back, <span id="welcomeBackName" style="color: var(--gold); font-weight: bold;"></span>! You are already registered.</p>
+        <button id="directDownloadBtn" class="btn-gold w-full py-4 text-sm tracking-wider">DOWNLOAD PDF NOW</button>
+        <button id="resetDetailsBtn" class="font-ui text-xs tracking-wider w-full py-3 mt-3" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">Not you? Change details</button>
+      </div>
+
+      <div id="newUserView">
+        <form id="detailsForm" class="space-y-4">
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">FULL NAME</label><input type="text" id="userName" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. Aditya Sharma"></div>
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">PHONE NUMBER</label><input type="tel" id="userPhone" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. 9876543210"></div>
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">EMAIL ADDRESS</label><input type="email" id="userEmail" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="you@example.com"></div>
+          <p id="formError" class="text-sm hidden font-ui" style="color: #ff8a8a;">Please enter valid details.</p>
+          <button type="submit" class="btn-gold w-full py-4 text-sm tracking-wider mt-4">REGISTER & DOWNLOAD PDF</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="step2" class="step hidden text-center">
+      <div class="mb-6">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4" style="background: rgba(201, 169, 97, 0.1); border: 1px solid var(--gold);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Download Started</h3>
+        <p class="font-body text-lg mb-1" style="color: rgba(245, 239, 224, 0.7);">Your PDF is on its way.</p>
+        <p id="successTopic" class="font-body text-base italic" style="color: var(--gold);"></p>
+      </div>
+      <div class="p-4 my-4 border" style="border-color: var(--line); background: rgba(201, 169, 97, 0.04);">
+        <p class="font-body text-base" style="color: rgba(245, 239, 224, 0.75);">For more notes, updates and discussions, join our WhatsApp channel.</p>
+      </div>
+      <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="btn-outline block w-full py-4 text-sm tracking-wider no-underline">JOIN WHATSAPP CHANNEL</a>
+      <button id="closeAfterSuccess" class="font-ui text-xs tracking-wider w-full py-3 mt-3" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// ====== Structured Syllabus Data (TNDALU Pattern) ======
+const syllabus = {
+  '5-year': {
+    name: '5 Year LL.B',
+    sems: {
+      'Sem 1': [
+        { id: '5y-s1-1', title: 'English – I', subtitle: 'Language Foundation', desc: 'Foundation course in English language and grammar for law students.', pdfUrl: '#' },
+        { id: '5y-s1-2', title: 'Political Science', subtitle: 'General Principles', desc: 'Core concepts of political science and government structures.', pdfUrl: '#' },
+        { id: '5y-s1-3', title: 'Economics', subtitle: 'General Principles', desc: 'Fundamental principles of micro and macroeconomics.', pdfUrl: '#' },
+        { id: '5y-s1-4', title: 'Sociology', subtitle: 'General Principles', desc: 'Introduction to sociology, society, and social institutions.', pdfUrl: '#' },
+        { id: '5y-s1-5', title: 'Law of Torts', subtitle: 'Consumer Protection', desc: 'Foundations of tortious liability and the Consumer Protection Act.', pdfUrl: '#' }
+      ],
+      'Sem 2': [
+        { id: '5y-s2-1', title: 'Modern Governments', subtitle: 'Political Science', desc: 'Comparative study of modern governments and political systems.', pdfUrl: '#' },
+        { id: '5y-s2-2', title: 'History of India', subtitle: 'Political & Constitutional', desc: 'Political and constitutional history of India from ancient to modern times.', pdfUrl: '#' },
+        { id: '5y-s2-3', title: 'Indian Economy', subtitle: 'Economics', desc: 'Structure and growth of the Indian economy.', pdfUrl: '#' },
+        { id: '5y-s2-4', title: 'Indian Sociology', subtitle: 'Sociology', desc: 'Social structure, institutions, and dynamics in India.', pdfUrl: '#' },
+        { id: '5y-s2-5', title: 'Law of Crimes', subtitle: 'Bharatiya Nyaya Sanhita (BNS)', desc: 'Offences against the body, property, and general exceptions under BNS.', pdfUrl: '#' }
+      ],
+      'Sem 3': [
+        { id: '5y-s3-1', title: 'English – II', subtitle: 'Language & Communication', desc: 'Advanced English communication and legal writing skills.', pdfUrl: '#' },
+        { id: '5y-s3-2', title: 'International Relations', subtitle: 'Political Science', desc: 'Theories and concepts of international relations and diplomacy.', pdfUrl: '#' },
+        { id: '5y-s3-3', title: 'Law and Economics', subtitle: 'Economic Analysis', desc: 'Application of economic principles to legal frameworks.', pdfUrl: '#' },
+        { id: '5y-s3-4', title: 'Law of Contracts – I', subtitle: 'Indian Contract Act', desc: 'Formation of contracts, consideration, and capacity to contract.', pdfUrl: '#' },
+        { id: '5y-s3-5', title: 'Family Law – I', subtitle: 'Hindu Law', desc: 'Marriage, succession, and adoption under Hindu Law.', pdfUrl: '#' }
+      ],
+      'Sem 4': [
+        { id: '5y-s4-1', title: 'English – III', subtitle: 'Advanced Communication', desc: 'Advanced legal language, drafting, and interpretation skills.', pdfUrl: '#' },
+        { id: '5y-s4-2', title: 'Political Thought', subtitle: 'Indian & Western', desc: 'Key political thinkers and ideologies from Indian and Western traditions.', pdfUrl: '#' },
+        { id: '5y-s4-3', title: 'Law and Society', subtitle: 'Sociology', desc: 'Interrelation between law, society, and social change.', pdfUrl: '#' },
+        { id: '5y-s4-4', title: 'Law of Contracts – II', subtitle: 'Specific Reliefs', desc: 'Breach of contract, indemnity, guarantee, and specific relief.', pdfUrl: '#' },
+        { id: '5y-s4-5', title: 'Family Law – II', subtitle: 'Muslim Law', desc: 'Marriage, divorce, and succession under Muslim Law.', pdfUrl: '#' }
+      ],
+      'Sem 5': [
+        { id: '5y-s5-1', title: 'Indian Public Administration', subtitle: 'Governance', desc: 'Structure and function of public administration in India.', pdfUrl: '#' },
+        { id: '5y-s5-2', title: 'Jurisprudence', subtitle: 'Legal Theory', desc: 'Schools of jurisprudence, natural law, positivism, and legal realism.', pdfUrl: '#' },
+        { id: '5y-s5-3', title: 'Constitutional Law – I', subtitle: 'Fundamental Rights', desc: 'Preamble, Fundamental Rights (Art. 12-35), and Directive Principles.', pdfUrl: '#' },
+        { id: '5y-s5-4', title: 'Law of Property', subtitle: 'Transfer of Property Act', desc: 'Concepts of movable and immovable property, sale, lease, and mortgage.', pdfUrl: '#' },
+        { id: '5y-s5-5', title: 'Law of Evidence', subtitle: 'Bharatiya Sakshya Adhiniyam (BSA)', desc: 'Relevancy of facts, admissions, confessions, and burden of proof under BSA.', pdfUrl: '#' }
+      ],
+      'Sem 6': [
+        { id: '5y-s6-1', title: 'Constitutional Law – II', subtitle: 'Union & State Judiciary', desc: 'Union, State executive, and judicial review.', pdfUrl: '#' },
+        { id: '5y-s6-2', title: 'Company Law', subtitle: 'Companies Act 2013', desc: 'Incorporation, management, and winding up of companies.', pdfUrl: '#' },
+        { id: '5y-s6-3', title: 'Labour Law – I', subtitle: 'Industrial Disputes', desc: 'Industrial Disputes Act, trade unions, and social security legislation.', pdfUrl: '#' },
+        { id: '5y-s6-4', title: 'Clinical Course I', subtitle: 'Professional Ethics', desc: 'Advocates Act, professional ethics, accountancy for lawyers, and Bar-Bench relations.', pdfUrl: '#' }
+      ],
+      'Sem 7': [
+        { id: '5y-s7-1', title: 'Banking Law', subtitle: 'Banking Regulation', desc: 'Banking Regulation Act, RBI functions, and banking practices.', pdfUrl: '#' },
+        { id: '5y-s7-2', title: 'Labour Law – II', subtitle: 'Social Security', desc: 'Advanced labour laws including PF, ESI, and gratuity.', pdfUrl: '#' },
+        { id: '5y-s7-3', title: 'Environmental Law', subtitle: 'Pollution & Protection', desc: 'Environmental Protection Act, pollution control boards, and international laws.', pdfUrl: '#' },
+        { id: '5y-s7-4', title: 'Administrative Law', subtitle: 'Delegated Legislation', desc: 'Principles of natural justice, delegated legislation, and judicial review.', pdfUrl: '#' }
+      ],
+      'Sem 8': [
+        { id: '5y-s8-1', title: 'Interpretation of Statutes', subtitle: 'Construction of Laws', desc: 'Rules of literal, golden, and mischief rule in interpreting statutes.', pdfUrl: '#' },
+        { id: '5y-s8-2', title: 'Land Laws', subtitle: 'Including TN Specific Acts', desc: 'Tamil Nadu land reforms, tenancy laws, and land acquisition.', pdfUrl: '#' },
+        { id: '5y-s8-3', title: 'International Law', subtitle: 'Public International Law', desc: 'Sources, statehood, treaties, and international organizations.', pdfUrl: '#' },
+        { id: '5y-s8-4', title: 'Clinical Course II', subtitle: 'Alternative Dispute Resolution', desc: 'Arbitration, mediation, conciliation, and negotiation techniques.', pdfUrl: '#' }
+      ],
+      'Sem 9': [
+        { id: '5y-s9-1', title: 'Criminal Procedure Code', subtitle: 'Bharatiya Nagarik Suraksha Sanhita (BNSS)', desc: 'Investigation, trial, bail, and charges under the BNSS.', pdfUrl: '#' },
+        { id: '5y-s9-2', title: 'Civil Procedure Code', subtitle: 'CPC 1908', desc: 'Structure of civil courts, jurisdiction, suits, and appeals.', pdfUrl: '#' },
+        { id: '5y-s9-3', title: 'Taxation Law', subtitle: 'Income Tax & GST', desc: 'Principles of direct and indirect taxation, GST framework, and appeals.', pdfUrl: '#' },
+        { id: '5y-s9-4', title: 'Clinical Course III', subtitle: 'Drafting & Pleading', desc: 'Art of drafting plaints, written statements, and conveyancing deeds.', pdfUrl: '#' }
+      ],
+      'Sem 10': [
+        { id: '5y-s10-1', title: 'Criminology & Penology', subtitle: 'Criminal Science', desc: 'Causes of crime, penological theories, and correctional administration.', pdfUrl: '#' },
+        { id: '5y-s10-2', title: 'Intellectual Property Law', subtitle: 'Patents & Copyrights', desc: 'Trademarks, patents, copyrights, and geographical indications.', pdfUrl: '#' },
+        { id: '5y-s10-3', title: 'Human Rights Law', subtitle: 'International Standards', desc: 'International covenants and human rights enforcement in India.', pdfUrl: '#' },
+        { id: '5y-s10-4', title: 'Clinical Course IV', subtitle: 'Moot Court & Internship', desc: 'Practical training through moot court exercises and legal internships.', pdfUrl: '#' }
+      ]
+    }
+  },
+  '3-year': {
+    name: '3 Year LL.B',
+    sems: {
+      'Sem 1': [
+        { id: '3y-s1-1', title: 'Jurisprudence', subtitle: 'Legal Theory', desc: 'Schools of jurisprudence, natural law, positivism, and legal realism.', pdfUrl: '#' },
+        { id: '3y-s1-2', title: 'Law of Contracts – I', subtitle: 'Formation & Voidability', desc: 'Offer, acceptance, consideration, and free consent under the Indian Contract Act.', pdfUrl: '#' },
+        { id: '3y-s1-3', title: 'Law of Torts', subtitle: 'Consumer Protection', desc: 'Foundations of tortious liability and the Consumer Protection Act.', pdfUrl: '#' },
+        { id: '3y-s1-4', title: 'Family Law – I', subtitle: 'Hindu Law', desc: 'Marriage, succession, and adoption under Hindu Law.', pdfUrl: '#' },
+        { id: '3y-s1-5', title: 'Law of Crimes', subtitle: 'Bharatiya Nyaya Sanhita (BNS)', desc: 'Offences against the body, property, and general exceptions under BNS.', pdfUrl: '#' }
+      ],
+      'Sem 2': [
+        { id: '3y-s2-1', title: 'Law of Contracts – II', subtitle: 'Specific Reliefs', desc: 'Breach of contract, indemnity, guarantee, and specific relief.', pdfUrl: '#' },
+        { id: '3y-s2-2', title: 'Property Law', subtitle: 'Transfer of Property Act', desc: 'Concepts of movable and immovable property, sale, lease, and mortgage.', pdfUrl: '#' },
+        { id: '3y-s2-3', title: 'Constitutional Law – I', subtitle: 'Fundamental Rights', desc: 'Preamble, Fundamental Rights (Art. 12-35), and Directive Principles.', pdfUrl: '#' },
+        { id: '3y-s2-4', title: 'Family Law – II', subtitle: 'Muslim Law', desc: 'Marriage, divorce, and succession under Muslim Law.', pdfUrl: '#' }
+      ],
+      'Sem 3': [
+        { id: '3y-s3-1', title: 'Constitutional Law – II', subtitle: 'Union & State Judiciary', desc: 'Union, State executive, and judicial review.', pdfUrl: '#' },
+        { id: '3y-s3-2', title: 'Land Laws', subtitle: 'Including TN Specific Acts', desc: 'Tamil Nadu land reforms, tenancy laws, and land acquisition.', pdfUrl: '#' },
+        { id: '3y-s3-3', title: 'Interpretation of Statutes', subtitle: 'Construction of Laws', desc: 'Rules of literal, golden, and mischief rule in interpreting statutes.', pdfUrl: '#' },
+        { id: '3y-s3-4', title: 'Company Law', subtitle: 'Companies Act 2013', desc: 'Incorporation, management, and winding up of companies.', pdfUrl: '#' },
+        { id: '3y-s3-5', title: 'Banking Law', subtitle: 'Banking Regulation', desc: 'Banking Regulation Act, RBI functions, and banking practices.', pdfUrl: '#' }
+      ],
+      'Sem 4': [
+        { id: '3y-s4-1', title: 'Law of Evidence', subtitle: 'Bharatiya Sakshya Adhiniyam (BSA)', desc: 'Relevancy of facts, admissions, confessions, and burden of proof under BSA.', pdfUrl: '#' },
+        { id: '3y-s4-2', title: 'Administrative Law', subtitle: 'Delegated Legislation', desc: 'Principles of natural justice, delegated legislation, and judicial review.', pdfUrl: '#' },
+        { id: '3y-s4-3', title: 'Labour Law – I', subtitle: 'Industrial Disputes', desc: 'Industrial Disputes Act, trade unions, and social security legislation.', pdfUrl: '#' },
+        { id: '3y-s4-4', title: 'Public International Law', subtitle: 'International Standards', desc: 'Sources, statehood, treaties, and international organizations.', pdfUrl: '#' }
+      ],
+      'Sem 5': [
+        { id: '3y-s5-1', title: 'Civil Procedure Code', subtitle: 'CPC 1908', desc: 'Structure of civil courts, jurisdiction, suits, and appeals.', pdfUrl: '#' },
+        { id: '3y-s5-2', title: 'Criminal Procedure Code', subtitle: 'Bharatiya Nagarik Suraksha Sanhita (BNSS)', desc: 'Investigation, trial, bail, and charges under the BNSS.', pdfUrl: '#' },
+        { id: '3y-s5-3', title: 'Environmental Law', subtitle: 'Pollution & Protection', desc: 'Environmental Protection Act, pollution control boards, and international laws.', pdfUrl: '#' },
+        { id: '3y-s5-4', title: 'Labour Law – II', subtitle: 'Social Security', desc: 'Advanced labour laws including PF, ESI, and gratuity.', pdfUrl: '#' },
+        { id: '3y-s5-5', title: 'Law of Taxation', subtitle: 'Income Tax & GST', desc: 'Principles of direct and indirect taxation, GST framework, and appeals.', pdfUrl: '#' }
+      ],
+      'Sem 6': [
+        { id: '3y-s6-1', title: 'Human Rights Law', subtitle: 'International Standards', desc: 'International covenants and human rights enforcement in India.', pdfUrl: '#' },
+        { id: '3y-s6-2', title: 'Criminology & Penology', subtitle: 'Criminal Science', desc: 'Causes of crime, penological theories, and correctional administration.', pdfUrl: '#' },
+        { id: '3y-s6-3', title: 'Intellectual Property Law', subtitle: 'Patents & Copyrights', desc: 'Trademarks, patents, copyrights, and geographical indications.', pdfUrl: '#' },
+        { id: '3y-s6-4', title: 'Clinical Courses', subtitle: 'Drafting, Pleading & Moot Court', desc: 'Practical training in drafting, pleading, conveyancing, and moot court exercises.', pdfUrl: '#' }
+      ]
+    }
+  },
+  'llm': {
+    name: 'LL.M (Master of Laws)',
+    sems: {
+      'Sem 1': [
+        { id: 'llm-s1-1', title: 'Research Methodology', subtitle: 'Legal Research', desc: 'Methods of legal research, citation, and dissertation writing.', pdfUrl: '#' },
+        { id: 'llm-s1-2', title: 'Constitutionalism', subtitle: 'Comparative Perspectives', desc: 'Principles of constitutionalism in India and abroad.', pdfUrl: '#' }
+      ],
+      'Sem 2': [
+        { id: 'llm-s2-1', title: 'Judicial Process', subtitle: 'Appellate System', desc: 'The process of judicial decision-making and precedent.', pdfUrl: '#' },
+        { id: 'llm-s2-2', title: 'Human Rights Law', subtitle: 'International Standards', desc: 'International covenants and human rights enforcement in India.', pdfUrl: '#' }
+      ],
+      'Sem 3': [
+        { id: 'llm-s3-1', title: 'Dissertation I', subtitle: 'Thesis Preparation', desc: 'Guidelines for drafting the LL.M dissertation.', pdfUrl: '#' },
+        { id: 'llm-s3-2', title: 'Elective: IPR', subtitle: 'Advanced IP', desc: 'Advanced topics in intellectual property rights.', pdfUrl: '#' }
+      ],
+      'Sem 4': [
+        { id: 'llm-s4-1', title: 'Dissertation II', subtitle: 'Final Submission', desc: 'Viva-voce and final thesis submission rules.', pdfUrl: '#' },
+        { id: 'llm-s4-2', title: 'Elective: Cyber Law', subtitle: 'IT Act 2000', desc: 'Advanced topics in cyber law and data privacy.', pdfUrl: '#' }
+      ]
+    }
+  }
+};
+
+// ====== State Management ======
+let activeProgram = '5-year';
+let activeSem = null;
+let selectedDownloadItem = null;
+let downloadContext = { program: '', semester: '', subject: '' };
+let userDetails = { name: '', phone: '', email: '' };
+const STORAGE_KEY = 'ranshi_user_v2';
+
+function getSavedUserDetails() { try { const s = localStorage.getItem(STORAGE_KEY); if (s) return JSON.parse(s); } catch (e) {} return null; }
+function saveUserDetails(d) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); } catch (e) {} }
+function clearUserDetails() { try { localStorage.removeItem(STORAGE_KEY); } catch (e) {} }
+
+// ====== Render Logic for Notes Section ======
+const contentArea = document.getElementById('notesContentArea');
+
+function renderSemesterView() {
+  const prog = syllabus[activeProgram];
+  let semButtons = `<div class="flex flex-wrap items-center justify-center gap-3 mb-12">`;
+  Object.keys(prog.sems).forEach(sem => {
+    semButtons += `<button class="pill-btn px-5 py-2 rounded-sm" onclick="selectSemester('${sem}')">${sem}</button>`;
+  });
+  semButtons += `</div>`;
+
+  contentArea.innerHTML = `
+    <div class="text-center mb-10 reveal visible">
+      <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">${prog.name}</h3>
+      <p class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Please select your semester to view subjects.</p>
+    </div>
+    ${semButtons}
+    <div class="text-center mt-10 opacity-50">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1" class="mx-auto mb-4"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <p class="font-ui text-xs tracking-[0.2em]" style="color: var(--gold);">SELECT A SEMESTER ABOVE</p>
+    </div>
+  `;
+}
+
+function selectSemester(sem) {
+  activeSem = sem;
+  renderSubjectsView();
+}
+
+function renderSubjectsView() {
+  const prog = syllabus[activeProgram];
+  const subjects = prog.sems[activeSem];
+  
+  let html = `
+    <div class="flex flex-wrap items-center justify-between mb-10 gap-4">
+      <button onclick="renderSemesterView()" class="font-ui text-xs tracking-wider flex items-center gap-2" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        BACK TO SEMESTERS
+      </button>
+      <div class="text-center flex-1">
+        <h3 class="font-display text-3xl font-bold" style="color: var(--paper);">${prog.name} · ${activeSem}</h3>
+      </div>
+      <div class="w-[120px]"></div>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  `;
+
+  subjects.forEach((sub, idx) => {
+    html += `
+      <div class="note-card p-7" onclick="handleSubjectClick('${sub.id}')">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 flex items-center justify-center rounded-sm" style="background: rgba(201, 169, 97, 0.08); border: 1px solid var(--line);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a961" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <div class="font-ui text-[10px] tracking-[0.2em]" style="color: var(--gold);">SUBJECT ${String(idx+1).padStart(2,'0')}</div>
+        </div>
+        <h3 class="font-display text-2xl font-bold mb-1" style="color: var(--paper);">${sub.title}</h3>
+        <div class="font-ui text-xs tracking-wider mb-3" style="color: var(--gold);">${sub.subtitle.toUpperCase()}</div>
+        <p class="font-body text-base leading-relaxed mb-5" style="color: rgba(245, 239, 224, 0.65);">${sub.desc}</p>
+        <div class="flex items-center justify-between pt-4 border-t" style="border-color: var(--line);">
+          <div class="font-ui text-xs" style="color: rgba(245, 239, 224, 0.55);">PDF Notes</div>
+          <div class="font-ui text-xs tracking-wider flex items-center gap-1" style="color: var(--gold);">DOWNLOAD <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  contentArea.innerHTML = html;
+  window.scrollTo({ top: document.getElementById('notes').offsetTop - 80, behavior: 'smooth' });
+}
+
+// ====== Modal & Download Flow ======
+const modal = document.getElementById('downloadModal');
+const step1 = document.getElementById('step1');
+const step2 = document.getElementById('step2');
+const newUserView = document.getElementById('newUserView');
+const returningUserView = document.getElementById('returningUserView');
+const welcomeBackName = document.getElementById('welcomeBackName');
+
+function handleSubjectClick(subjectId) {
+  const prog = syllabus[activeProgram];
+  let subject = null;
+  Object.keys(prog.sems).forEach(sem => {
+    const found = prog.sems[sem].find(s => s.id === subjectId);
+    if (found) subject = found;
+  });
+  if (!subject) return;
+  
+  selectedDownloadItem = subject;
+  downloadContext = { program: prog.name, semester: activeSem, subject: subject.title };
+  openModal();
+}
+
+function openModal() {
+  const saved = getSavedUserDetails();
+  if (saved && saved.name && saved.phone && saved.email) {
+    userDetails = saved;
+    newUserView.classList.add('hidden');
+    returningUserView.classList.remove('hidden');
+    welcomeBackName.textContent = saved.name;
+  } else {
+    newUserView.classList.remove('hidden');
+    returningUserView.classList.add('hidden');
+    document.getElementById('detailsForm').reset();
+  }
+
+  step1.classList.remove('hidden');
+  step2.classList.add('hidden');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+document.getElementById('closeModal').addEventListener('click', closeModal);
+document.getElementById('closeAfterSuccess').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+document.getElementById('directDownloadBtn').addEventListener('click', triggerDownload);
+
+document.getElementById('detailsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('userName').value.trim();
+  const phone = document.getElementById('userPhone').value.trim();
+  const email = document.getElementById('userEmail').value.trim();
+  const errEl = document.getElementById('formError'); errEl.classList.add('hidden');
+
+  if (name.length < 2) { errEl.textContent = 'Please enter your full name.'; errEl.classList.remove('hidden'); return; }
+  if (!/^[0-9+\-\s]{10,15}$/.test(phone)) { errEl.textContent = 'Please enter a valid phone number.'; errEl.classList.remove('hidden'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email address.'; errEl.classList.remove('hidden'); return; }
+
+  userDetails = { name, phone, email };
+  saveUserDetails(userDetails);
+  triggerDownload();
+});
+
+document.getElementById('resetDetailsBtn').addEventListener('click', () => {
+  clearUserDetails();
+  userDetails = { name: '', phone: '', email: '' };
+  newUserView.classList.remove('hidden');
+  returningUserView.classList.add('hidden');
+  document.getElementById('detailsForm').reset();
+});
+
+// ====== Google Sheet Submission & Download ======
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxKxemKbJaatmLQJKj3rUN67uo3I6SobSFSaiFjay42APY67tUvNTOew5aElIJ7Q-rh/exec';
+
+async function triggerDownload() {
+  showToast('Preparing your download...');
+  
+  const payload = JSON.stringify({
+    name: userDetails.name,
+    phone: userDetails.phone,
+    email: userDetails.email,
+    program: downloadContext.program,
+    semester: downloadContext.semester,
+    subject: downloadContext.subject,
+    timestamp: new Date().toISOString()
+  });
+
+  try {
+    await fetch(SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: payload });
+  } catch (err) { console.warn('Sheet submission note:', err); }
+
+  if (selectedDownloadItem.pdfUrl && selectedDownloadItem.pdfUrl !== '#') {
+    const link = document.createElement('a');
+    link.href = selectedDownloadItem.pdfUrl;
+    link.download = `${selectedDownloadItem.title}.pdf`;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    showToast('PDF link coming soon!');
+  }
+
+  step1.classList.add('hidden');
+  step2.classList.remove('hidden');
+  document.getElementById('successTopic').textContent = `${selectedDownloadItem.title}`;
+  showToast('Download started · details saved to sheet');
+}
+
+function showToast(msg) { const toast = document.getElementById('toast'); toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3200); }
+
+document.getElementById('nav5Year').addEventListener('click', () => {
+  activeProgram = '5-year';
+  document.getElementById('nav5Year').classList.add('active');
+  document.getElementById('nav3Year').classList.remove('active');
+  document.getElementById('navLLM').classList.remove('active');
+  renderSemesterView();
+});
+document.getElementById('nav3Year').addEventListener('click', () => {
+  activeProgram = '3-year';
+  document.getElementById('nav5Year').classList.remove('active');
+  document.getElementById('nav3Year').classList.add('active');
+  document.getElementById('navLLM').classList.remove('active');
+  renderSemesterView();
+});
+document.getElementById('navLLM').addEventListener('click', () => {
+  activeProgram = 'llm';
+  document.getElementById('nav5Year').classList.remove('active');
+  document.getElementById('nav3Year').classList.remove('active');
+  document.getElementById('navLLM').classList.add('active');
+  renderSemesterView();
+});
+
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) { header.style.background = 'rgba(10, 22, 40, 0.95)'; header.style.boxShadow = '0 10px 40px -10px rgba(0,0,0,0.5)'; }
+  else { header.style.background = 'rgba(10, 22, 40, 0.7)'; header.style.boxShadow = 'none'; }
+});
+
+// Init
+renderSemesterView();
+</script>
+</body>
+</html>
