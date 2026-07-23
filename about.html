@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranshi Legal Minds — About Us</title>
+<link rel="icon" type="image/png" href="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #0a1628; --bg-deep: #050d1c; --bg-alt: #0f1f3a;
+    --paper: #f5efe0; --gold: #c9a961; --gold-bright: #e8c878;
+    --gold-deep: #a08442; --line: rgba(201, 169, 97, 0.2);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Cormorant Garamond', serif; background: var(--bg); color: var(--paper); margin: 0; overflow-x: hidden; }
+  .bg-texture { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.10) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.06) 0%, transparent 50%); }
+  .grain { position: fixed; inset: 0; opacity: 0.04; pointer-events: none; z-index: 1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .font-display { font-family: 'Playfair Display', serif; } .font-body { font-family: 'Cormorant Garamond', serif; } .font-ui { font-family: 'Inter', sans-serif; }
+
+  .logo-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--paper); overflow: hidden; border: 1.5px solid var(--gold); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+  .logo-circle:hover { box-shadow: 0 0 20px rgba(201,169,97,0.4); }
+  .logo-circle img { width: 100%; height: 100%; object-fit: contain; }
+  .header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(10, 22, 40, 0.7); border-bottom: 1px solid var(--line); transition: all 0.3s ease; }
+
+  .btn-gold { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%); color: var(--bg-deep); font-family: 'Inter', sans-serif; font-weight: 600; letter-spacing: 0.05em; transition: all 0.3s ease; border: none; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 10px 30px -10px rgba(201, 169, 97, 0.6); }
+  .btn-outline { background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.05em; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: var(--gold); color: var(--bg-deep); }
+  
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  
+  ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-deep); border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+  .divider { display: flex; align-items: center; gap: 16px; color: var(--gold); }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  
+  .quote-mark { font-family: 'Playfair Display', serif; font-size: 120px; line-height: 1; color: var(--gold); opacity: 0.18; }
+  .gold-text { background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold-bright) 50%, var(--gold-deep) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+<div class="grain"></div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <div class="logo-circle">
+        <img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo">
+      </div>
+      <div>
+        <div class="font-display text-xl tracking-wide" style="color: var(--paper);">Ranshi</div>
+        <div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEGAL MINDS</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 font-ui text-sm">
+      <a href="index.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Home</a>
+      <a href="notes.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Notes</a>
+      <a href="bare-acts.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">Bare Acts</a>
+      <a href="ugc-net.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--paper);">UGC NET</a>
+      <a href="about.html" class="hover:text-[#c9a961] transition no-underline" style="color: var(--gold);">About</a>
+    </nav>
+    <a href="https://whatsapp.com/channel/0029Vb8AE6eJ3juukHL3iI0V" target="_blank" class="btn-outline px-5 py-2 text-sm rounded-sm hidden sm:inline-block">JOIN WHATSAPP</a>
+  </div>
+</header>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="relative pt-32 py-24 px-6 min-h-screen flex items-center">
+  <div class="max-w-5xl mx-auto w-full">
+    <div class="text-center mb-16 reveal">
+      <div class="divider mb-6"><span class="font-ui text-xs tracking-[0.4em]">ABOUT THE ECOSYSTEM</span></div>
+      <h2 class="font-display text-4xl md:text-6xl font-bold">
+        <span style="color: var(--paper);">More Than Notes.</span><br>
+        <span class="italic font-normal gold-text">A Way of Thinking.</span>
+      </h2>
+    </div>
+    
+    <div class="relative max-w-3xl mx-auto text-center reveal">
+      <div class="quote-mark absolute -top-8 left-0">"</div>
+      <p class="font-body text-2xl md:text-3xl leading-relaxed italic" style="color: var(--paper);">
+        Ranshi Legal Minds exists for the student who reads the textbook twice and still doesn't get it. We break down judgments, decode statutes, and rebuild concepts from first principles — so the next time you open a case, you don't just read it. <span style="color: var(--gold);">You understand it.</span>
+      </p>
+    </div>
+
+    <div class="mt-16 text-center reveal">
+      <a href="notes.html" class="btn-gold px-8 py-4 text-sm tracking-wider no-underline">BROWSE NOTES</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-12 px-6 border-t" style="border-color: var(--line);">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <div class="logo-circle" style="width:36px;height:36px;"><img src="https://z-cdn-media.chatglm.cn/files/f0d8bf8f-bb63-4813-95c9-87cb274f038b.png?auth_key=1884636055-ba4da1858ac347d6aabcd79f879200b9-0-1c63f8a5488efe90f0d5ddf859a4ceb9" alt="Ranshi Legal Minds Logo"></div>
+      <div><div class="font-display text-lg" style="color: var(--paper);">Ranshi Legal Minds</div><div class="font-ui text-[10px] tracking-[0.3em]" style="color: var(--gold);">LEARN · THINK · LEAD</div></div>
+    </div>
+    <div class="font-ui text-xs text-center" style="color: rgba(245, 239, 224, 0.4);">© 2024 Ranshi Legal Minds · Where Textbooks End, Thinking Begins</div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const header = document.querySelector('.header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) { header.style.background = 'rgba(10, 22, 40, 0.95)'; header.style.boxShadow = '0 10px 40px -10px rgba(0,0,0,0.5)'; }
+  else { header.style.background = 'rgba(10, 22, 40, 0.7)'; header.style.boxShadow = 'none'; }
+});
+</script>
+</body>
+</html>
