@@ -328,17 +328,24 @@
         <h3 class="font-display text-3xl font-bold mb-2" style="color: var(--paper);">Quick Login</h3>
         <p class="font-body text-lg" style="color: rgba(245, 239, 224, 0.6);">Enter your details once. The PDF will download automatically.</p>
       </div>
-      <div id="welcomeBackNote" class="saved-badge mb-4 hidden">
-        <span>Welcome back, <strong id="welcomeBackName" style="color: var(--gold);"></strong>! You already registered.</span>
+      
+      <!-- Returning User View -->
+      <div id="returningUserView" class="hidden text-center">
+        <p class="font-body text-xl mb-6">Welcome back, <span id="welcomeBackName" style="color: var(--gold); font-weight: bold;"></span>! You are already registered.</p>
+        <button id="directDownloadBtn" class="btn-gold w-full py-4 text-sm tracking-wider">DOWNLOAD PDF NOW</button>
+        <button id="resetDetailsBtn" class="font-ui text-xs tracking-wider w-full py-3 mt-3" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">Not you? Change details</button>
       </div>
-      <form id="detailsForm" class="space-y-4">
-        <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">FULL NAME</label><input type="text" id="userName" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. Aditya Sharma"></div>
-        <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">PHONE NUMBER</label><input type="tel" id="userPhone" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. 9876543210"></div>
-        <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">EMAIL ADDRESS</label><input type="email" id="userEmail" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="you@example.com"></div>
-        <p id="formError" class="text-sm hidden font-ui" style="color: #ff8a8a;">Please enter valid details.</p>
-        <button type="submit" class="btn-gold w-full py-4 text-sm tracking-wider mt-4">REGISTER & DOWNLOAD PDF</button>
-      </form>
-      <button id="resetDetailsBtn" class="font-ui text-xs tracking-wider w-full py-3 mt-3 hidden" style="color: var(--gold); background: transparent; border: none; cursor: pointer;">Not you? Change details</button>
+
+      <!-- New User View -->
+      <div id="newUserView">
+        <form id="detailsForm" class="space-y-4">
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">FULL NAME</label><input type="text" id="userName" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. Aditya Sharma"></div>
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">PHONE NUMBER</label><input type="tel" id="userPhone" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="e.g. 9876543210"></div>
+          <div><label class="font-ui text-xs tracking-wider mb-2 block" style="color: var(--gold);">EMAIL ADDRESS</label><input type="email" id="userEmail" required class="input-field w-full px-4 py-3 text-base rounded-sm" placeholder="you@example.com"></div>
+          <p id="formError" class="text-sm hidden font-ui" style="color: #ff8a8a;">Please enter valid details.</p>
+          <button type="submit" class="btn-gold w-full py-4 text-sm tracking-wider mt-4">REGISTER & DOWNLOAD PDF</button>
+        </form>
+      </div>
     </div>
 
     <div id="step2" class="step hidden text-center">
@@ -651,9 +658,9 @@ function renderBareActs() {
 const modal = document.getElementById('downloadModal');
 const step1 = document.getElementById('step1');
 const step2 = document.getElementById('step2');
-const welcomeBackNote = document.getElementById('welcomeBackNote');
+const newUserView = document.getElementById('newUserView');
+const returningUserView = document.getElementById('returningUserView');
 const welcomeBackName = document.getElementById('welcomeBackName');
-const resetDetailsBtn = document.getElementById('resetDetailsBtn');
 
 function handleSubjectClick(subjectId) {
   const prog = syllabus[activeProgram];
@@ -680,15 +687,12 @@ function openModal() {
   const saved = getSavedUserDetails();
   if (saved && saved.name && saved.phone && saved.email) {
     userDetails = saved;
-    welcomeBackNote.classList.remove('hidden');
+    newUserView.classList.add('hidden');
+    returningUserView.classList.remove('hidden');
     welcomeBackName.textContent = saved.name;
-    resetDetailsBtn.classList.remove('hidden');
-    document.getElementById('userName').value = saved.name;
-    document.getElementById('userPhone').value = saved.phone;
-    document.getElementById('userEmail').value = saved.email;
   } else {
-    welcomeBackNote.classList.add('hidden');
-    resetDetailsBtn.classList.add('hidden');
+    newUserView.classList.remove('hidden');
+    returningUserView.classList.add('hidden');
     document.getElementById('detailsForm').reset();
   }
 
@@ -703,6 +707,9 @@ document.getElementById('closeModal').addEventListener('click', closeModal);
 document.getElementById('closeAfterSuccess').addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+// Direct download for returning users
+document.getElementById('directDownloadBtn').addEventListener('click', triggerDownload);
 
 document.getElementById('detailsForm').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -720,12 +727,12 @@ document.getElementById('detailsForm').addEventListener('submit', (e) => {
   triggerDownload();
 });
 
-resetDetailsBtn.addEventListener('click', () => {
+document.getElementById('resetDetailsBtn').addEventListener('click', () => {
   clearUserDetails();
   userDetails = { name: '', phone: '', email: '' };
+  newUserView.classList.remove('hidden');
+  returningUserView.classList.add('hidden');
   document.getElementById('detailsForm').reset();
-  welcomeBackNote.classList.add('hidden');
-  resetDetailsBtn.classList.add('hidden');
 });
 
 // ====== Google Sheet Submission & Download ======
